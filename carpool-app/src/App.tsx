@@ -1,35 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import AuthForm from "./components/authForm";
+import { useAuth } from "./hooks/useAuth";
+import Dashboard from "./pages/dashboard";
+import AppNavigationMenu from "./components/navigationMenu";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { user, loading } = useAuth();
+
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (!user) return <AuthForm />;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="w-screen flex flex-col min-h-screen">
+      <header>
+        <AppNavigationMenu />
+      </header>
+      <main className="w-screen flex-1 p-6 bg-gray-500">
+        <Dashboard />
+      </main>
+    </div>
+  );
 }
 
-export default App
+
+
+// import AuthForm from "./components/authForm"
+// import { useAuth } from "./hooks/useAuth"
+// import Dashboard from "./app/dashboard"
+// import { Sidebar } from "lucide-react"
+
+
+
+//  function App() {
+//   const { user, loading } = useAuth()
+
+//   if (loading) return <p className="text-center mt-10">Loading...</p>
+//   if (!user) return <AuthForm />
+
+//   return (
+//       <Sidebar>
+//         <Dashboard />
+//       </Sidebar>
+//   )
+// }
+
+// export default App
+
+// import AuthForm from "./components/authForm"
+// import { useAuth } from "./hooks/useAuth"
+// import Dashboard from "./pages/dashboard" // ojo: mejor en /pages, no en /app
+// import { Sidebar } from "@/components/ui/sidebar"
+// import { Home, Calendar, DollarSign, History } from "lucide-react"
+
+// export default function App() {
+//   const { user, loading } = useAuth()
+
+//   if (loading) return <p className="text-center mt-10">Loading...</p>
+//   if (!user) return <AuthForm />
+
+//   return (
+//       <div className="w-screen h-screen flex bg-gray-500">
+//         {/* Sidebar
+//         <Sidebar>
+          
+//         </Sidebar> */}
+
+//         {/* Contenido principal */}
+//         <Dashboard />
+
+//       </div>
+//   )
+// }
